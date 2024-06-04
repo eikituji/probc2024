@@ -20,7 +20,7 @@
                 <p class=“card-text”>
                 拾得物の登録を行う上で必要となるユーザの情報を登録するための機能です
                 </p>
-                <a href="#" class="btn btn-primary">登録する</a>
+                <a href="user_regi.php" class="btn btn-primary">登録する</a>
                 </div>
             </div>
             <div class="col card m-1">
@@ -42,7 +42,7 @@
                 <p class=“card-text”>
                 システムに登録されている拾得物のデータを対象として検索するための機能です。
                 </p>
-                <a href="#" class="btn btn-primary">検索する</a>
+                <a href="syutoku_search.php" class="btn btn-primary">検索する</a>
                 </div>
             </div>
             <div class="col card m-1">
@@ -53,7 +53,7 @@
                 施設内で何か物をなくしたときに遺失物の捜索依頼を出すための機能です。
                 </p>
                 <a href="isitubutu_order.php" class="btn btn-primary">依頼する</a>
-                <a href="#" class="btn btn-primary">一覧</a>
+                <a href="isitubutu_list.php" class="btn btn-primary">一覧</a>
                 </div>
             </div>
         </div>
