@@ -3,35 +3,32 @@
 $user = "probc2024";
 $pass = "probc2024";
 $dsn = "mysql:dbname={$user};host=172.20.32.2";
-$dsn = "mysql:dbname={$user};host=172.20.32.2";
 $now = new DateTime();
 $nowstr = $now->format("Y-m-d H:i:s");
 $np = "";
 try {
     $my = new PDO($dsn, $user, $pass);
     $my->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if ($_POST["data"] == "fitem") {
-        if (isset($_POST["item_category"], $_POST["pickup_place"], $_POST["color"], $_POST["detail"])) {
-        if (isset($_POST["item_category"], $_POST["pickup_place"], $_POST["color"], $_POST["detail"])) {
-            try {
-                $my->beginTransaction();
-                $sql = "INSERT INTO 拾得物 (ID, 拾得物分類ID, 拾得場所, 色, 特徴) VALUES (?, ?, ?, ?);";
-                $arr = array($_POST["item_category"], $_POST["pickup_place"], $_POST["color"], $_POST["detail"]);
-                $arr = array($_POST["item_category"], $_POST["pickup_place"], $_POST["color"], $_POST["detail"]);
-                $stmt = $my->prepare($sql);
-                $stmt->execute($arr);
-                $fid = $my->lastInsertId();
-                $sql = "INSERT INTO 拾得物管理状況 (ユーザID, 拾得物ID, 変更内容, 変更日時) VALUES (?, ?, ?, ?);";
-                $stmt = $my->prepare($sql);
-                $stmt->execute($arr);
-                $my->commit();
-            } catch (Exception $e) {
-                $my->rollBack();
-                echo "Error: " . $e->getMessage();
-            }
-            $np = "index.php";
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["data"])) {
+        if ($_POST["data"] == "fitem" && isset($_POST["item_category"], $_POST["pickup_place"], $_POST["color"], $_POST["detail"])) {
+            $my->beginTransaction();
+
+            // 拾得物を挿入
+            $sql = "INSERT INTO 拾得物 (ID, 拾得場所, 色, 特徴) VALUES (?, ?, ?, ?)";
+            $stmt = $my->prepare($sql);
+            $stmt->execute(array($_POST["item_category"], $_POST["pickup_place"], $_POST["color"], $_POST["detail"]));
+            $fid = $my->lastInsertId();
+
+            // 拾得物管理状況を挿入
+            // $sql = "INSERT INTO 拾得物管理状況 (ID, ユーザID, 拾得物ID, 変更内容, 変更日時) VALUES (?,?, ?, ?, ?)";
+            // $stmt = $my->prepare($sql);
+            // $stmt->execute(array($user_id, $fid, "新規登録", $nowstr));
+
+            $my->commit();
             $np = "index.php";
         }
+    
+        
     } else if ($_POST["data"] == "fitem_st") {
         if (isset($_POST["p1"], $_POST["p2"], $_POST["p3"])) {
             $sql = "INSERT INTO 拾得物管理状況 (ユーザID,拾得物ID,変更内容,変更日時) VALUES (?,?,?,?);";
@@ -56,7 +53,7 @@ try {
             $stmt->execute($arr);
         }
     } 
-    } 
+    
 
     header("Location: {$np}");
 } catch (PDOException $e) {
