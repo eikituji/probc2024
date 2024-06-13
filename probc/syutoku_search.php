@@ -1,68 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-<?php include("html/meta.html"); ?>
-<title>拾得物管理システム</title>
+<?php include("./html/meta.html"); ?>
+    <meta charset="UTF-8">
+    <title>登録されている拾得物</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* カスタムスタイル */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <?php include("html/header.html"); ?>
-    <div class="container">
-    <div class="bg-primary text-white p-5 mt-3 rounded text-center">
-            <h1 class="display-4 fst-italic">遺失物検索</h1>
-    </div>
-    <div>
-        <h2>無くした物の情報を入力してください。</h2>
-    </div>
-    <div class="col card m-1">
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">遺失物分類</label>
-                        <input type="text" required class="form-control" name="">
-                    </div>
-                </div>
-    </div>
-    <div class="col card m-1">
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">物品名</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="1101教室">
-                    </div>
-                </div>
-    </div>    
-    <div class="col card m-1">
-                <div class="card-body">
-                <h5 class="card-title">遺失物の色を選択してください</h5>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>色を選択</option>
-                        <option value="1">白</option>
-                        <option value="2">黒</option>
-                        <option value="3">灰色</option>
-                        <option value="4">赤</option>
-                        <option value="5">青</option>
-                        <option value="6">緑</option>
-                        <option value="7">黄</option>
-                        <option value="8">橙</option>
-                        <option value="9">桃</option>
-                        <option value="10">紫</option>
-                        <option value="11">茶</option>
-                        <option value="12">金</option>
-                        <option value="13">銀</option>
-                    </select>
-                </div>
-            </div> 
-            <div class="col card m-1">
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">特徴</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="丸いタオルハンカチ">
-                    </div>
-                </div>
-    </div>        
-    
-    
-    <div class="col card m-1">   
-        <button type="submit" class="　col-md-4　btn btn-primary">検索する</button>
-    </div>
-    <?php include("html/footer.html"); ?>
+<?php include("./html/header.html"); ?>
+<div class="container">
+    <h2>登録されている拾得物一覧</h2>
+
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>拾得物分類</th>
+                <th>拾得場所</th>
+                <th>色</th>
+                <th>特徴</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        <?php
+        // データベース接続情報
+        $host = '172.20.32.2';
+        $dbname = 'probc2024';
+        $username = 'probc2024';
+        $password = 'probc2024';
+
+        try {
+            // データベース接続
+            $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            // SQLクエリの準備と実行
+            $stmt = $pdo->query("SELECT * FROM 拾得物");
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                // 拾得物分類IDに基づいて分類名を決定
+                $category = "";
+                switch ($row['ID']) {
+                    case 1:
+                        $category = "かばん";
+                        break;
+                    case 2:
+                        $category = "傘";
+                        break;
+                    case 3:
+                        $category = "学生証";
+                        break;
+                    case 4:
+                        $category = "携帯";
+                        break;
+                    case 5:
+                        $category = "財布";
+                        break;
+                    case 6:
+                        $category = "イヤホン";
+                        break;
+                    case 7:
+                        $category = "衣類";
+                        break;
+                    case 8:
+                        $category = "鍵";
+                        break;
+                    case 9:
+                        $category = "その他";
+                        break;
+                    default:
+                        $category = "未定義";
+                }
+
+                echo "<tr>";
+                echo "<td>{$category}</td>";
+                echo "<td>{$row['拾得場所']}</td>";
+                echo "<td>{$row['色']}</td>";
+                echo "<td>{$row['特徴']}</td>";
+                echo "</tr>";
+            }
+        } catch(PDOException $e) {
+            echo "Connection failed: " . $e->getMessage();
+        }
+        ?>
+        </tbody>
+    </table>
+</div>
+<?php include("./html/footer.html"); ?>
 </body>
 </html>
