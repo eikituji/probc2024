@@ -2,20 +2,22 @@
 
 $user = "probc2024";
 $pass = "probc2024";
-$dsn = "mysql:dbname={$user};host=localhost";
+$dsn = "mysql:dbname={$user};host=172.20.32.2";
+$dsn = "mysql:dbname={$user};host=172.20.32.2";
 $now = new DateTime();
 $nowstr = $now->format("Y-m-d H:i:s");
 $np = "";
-
 try {
     $my = new PDO($dsn, $user, $pass);
     $my->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if ($_POST["data"] == "fitem") {
-        if (isset($_POST["p1"], $_POST["p2"], $_POST["p3"], $_POST["p4"], $_POST["p5"])) {
+        if (isset($_POST["item_category"], $_POST["pickup_place"], $_POST["color"], $_POST["detail"])) {
+        if (isset($_POST["item_category"], $_POST["pickup_place"], $_POST["color"], $_POST["detail"])) {
             try {
                 $my->beginTransaction();
                 $sql = "INSERT INTO 拾得物 (ID, 拾得物分類ID, 拾得場所, 色, 特徴) VALUES (?, ?, ?, ?);";
-                $arr = array($_POST["p2"], $_POST["p3"], $_POST["p4"], $_POST["p5"]);
+                $arr = array($_POST["item_category"], $_POST["pickup_place"], $_POST["color"], $_POST["detail"]);
+                $arr = array($_POST["item_category"], $_POST["pickup_place"], $_POST["color"], $_POST["detail"]);
                 $stmt = $my->prepare($sql);
                 $stmt->execute($arr);
                 $fid = $my->lastInsertId();
@@ -27,7 +29,8 @@ try {
                 $my->rollBack();
                 echo "Error: " . $e->getMessage();
             }
-            $np = "v_fitem_reg.php";
+            $np = "index.php";
+            $np = "index.php";
         }
     } else if ($_POST["data"] == "fitem_st") {
         if (isset($_POST["p1"], $_POST["p2"], $_POST["p3"])) {
@@ -52,7 +55,8 @@ try {
             $stmt = $my->prepare($sql);
             $stmt->execute($arr);
         }
-    }
+    } 
+    } 
 
     header("Location: {$np}");
 } catch (PDOException $e) {
