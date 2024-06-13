@@ -23,7 +23,7 @@ class data_list{
 class find_item_list extends data_list{
   function __construct(){
     $sql  = "SELECT 拾得物分類.大分類, 拾得物分類.物品名, 拾得物分類.貴重品, ";
-    $sql .= "拾得物.ID AS 拾得物ID, 拾得物.拾得場所, 拾得物.色, 拾得物.特徴, 拾得物.画像, ";
+    $sql .= "拾得物.ID AS 拾得物ID, 拾得物.拾得場所, 拾得物.色, 拾得物.特徴,  ";
     $sql .= "拾得物管理状況.ID AS 拾得物管理状況ID, 拾得物管理状況.変更日時, 拾得物管理状況.変更内容 ";
     $sql .= "FROM 拾得物管理状況 INNER JOIN ";
     $sql .= "(SELECT 拾得物ID,MAX(変更日時) AS 日時 FROM 拾得物管理状況 GROUP BY 拾得物ID) AS 最終更新 ";
