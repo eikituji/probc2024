@@ -8,7 +8,7 @@ class data_list{
     $this-> sql = $arg;
   }
   function getList(){
-    $dsn = "mysql:dbname=probc2024;host=localhost";
+    $dsn = "mysql:dbname=probc2024;host=172.20.32.2";
     $my = new PDO($dsn, 'probc2024', 'probc2024');
     $arr = $my->query($this->sql);
     return($arr);
