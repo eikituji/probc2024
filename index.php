@@ -65,7 +65,6 @@
                 <p class=“card-text”>
                 管理者である窓口の方のための機能です。
                 </p>
-                <a href="#" class="btn btn-primary">問い合わせ</a>
                 <a href="#" class="btn btn-primary">登録情報編集メニュー</a>
                 </div>
             </div>
