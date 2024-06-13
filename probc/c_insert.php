@@ -6,7 +6,6 @@ $dsn = "mysql:dbname={$user};host=172.20.32.2";
 $now = new DateTime();
 $nowstr = $now->format("Y-m-d H:i:s");
 $np = "";
-// dd
 try {
     $my = new PDO($dsn, $user, $pass);
     $my->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
