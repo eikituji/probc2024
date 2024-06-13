@@ -2,7 +2,7 @@
 
 $user = "probc2024";
 $pass = "probc2024";
-$dsn = "mysql:dbname={$user};host=localhost";
+$dsn = "mysql:dbname={$user};host=172.20.32.2";
 $now = new DateTime();
 $nowstr = $now->format("Y-m-d H:i:s");
 $np = "";
@@ -28,14 +28,23 @@ if($_POST["data"] == "fitem"){
         $arr = array($_POST["p1"],$_POST["p2"],$_POST["p3"],$_POST["p4"],$imgname);
         $stmt = $my->prepare($sql);
         $stmt->execute($arr);
-        $fid = $my->lastInsertId();
-        $sql = "INSERT INTO 拾得物管理状況 (ユーザID,拾得物ID,変更内容,変更日時) VALUES (?,?,?,?);";
-        $arr = array($_POST["p5"],$fid,"拾得",$nowstr);
-        $stmt = $my->prepare($sql);
-        $stmt->execute($arr);
-        $my->commit();
-    }catch(Exception $e){
-        $my->rollBack();
+    $fid = $my->lastInsertId();
+
+    // 拾得物管理状況に情報を挿入
+    $sql = "INSERT INTO 拾得物管理状況 (ユーザID,拾得物ID,変更内容,変更日時) VALUES (?,?,?,?);";
+    $arr = array($_POST["p5"], $fid, "拾得", $nowstr);
+    $stmt = $my->prepare($sql);
+    $stmt->execute($arr);
+
+    // トランザクションのコミット
+    $my->commit();
+
+    // 成功メッセージの表示
+    echo "データの挿入に成功しました。";
+
+} catch (Exception $e) {
+    // ロールバック
+    $my->rollBack();
     }
     $np = "v_fitem_reg.php";
   }
