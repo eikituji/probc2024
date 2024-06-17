@@ -23,14 +23,14 @@
             </div>
             <div class="col-md-6 mb-3">
                 <label for="phone" class="form-label">電話番号</label>
-                <input type="text" class="form-control" id="phone" name="phone" placeholder="090-1234-5678" required>
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="090-1234-5678" >
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="email" class="form-label">メールアドレス</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="xxx@bunkyo.ac.jp" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="xxx@bunkyo.ac.jp" >
             </div>
             <div class="col-md-6 mb-3">
                 <label for="item_category" class="form-label">遺失物種類</label>
@@ -40,7 +40,7 @@
 
         <div class="mb-3">
             <label for="others" class="form-label">その他</label>
-            <input type="text" class="form-control" id="others" name="others" placeholder="かばんにアクセサリがあった など" required>
+            <input type="text" class="form-control" id="others" name="others" placeholder="かばんにアクセサリがあった など" >
         </div>
 
         <button type="submit" class="btn btn-success">登録</button>

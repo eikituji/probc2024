@@ -37,14 +37,14 @@
                 <th>番号</th>
                 <th>種類</th>
                 <th>その他、特徴</th>
-                <th>詳細</th>
+                <th>遺失者の詳細情報</th>
             </tr>
         </thead>
         <tbody>
 
         <?php
         // データベース接続情報
-        $host = 'localhost'; // 正しいホスト名またはIPアドレスを設定する
+        $host = '172.20.32.10'; // 正しいホスト名またはIPアドレスを設定する
         $dbname = 'probc2024';
         $username = 'probc2024';
         $password = 'probc2024';
