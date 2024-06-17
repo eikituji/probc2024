@@ -2,7 +2,7 @@
 
 $user = "probc2024";
 $pass = "probc2024";
-$dsn = "mysql:host=localhost;dbname=probc2024;charset=utf8mb4";
+$dsn = "mysql:host=172.20.32.10;dbname=probc2024;charset=utf8mb4";
 
 
 $now = new DateTime();
@@ -19,10 +19,10 @@ try {
             $my->beginTransaction();
 
             // 拾得物を挿入
-            $sql = "INSERT INTO 拾得物 (遺失物分類ID, 拾得場所, 色, 特徴) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO 拾得物 (ID,拾得物分類ID, 拾得場所, 色, 特徴) VALUES (?, ?, ?, ?, ?)";
             $stmt = $my->prepare($sql);
-            $stmt->execute(array($_POST["item_category"], $_POST["pickup_place"], $_POST["color"], $_POST["detail"]));
-            $fid = $my->lastInsertId();
+            $stmt->execute(array($_POST[""],$_POST["item_category"], $_POST["pickup_place"], $_POST["color"], $_POST["detail"]));
+            $np = "index.php";
 
             // 拾得物管理状況を挿入
             // $sql = "INSERT INTO 拾得物管理状況 (ユーザID, 拾得物ID, 変更内容, 変更日時) VALUES (?, ?, ?, ?)";
